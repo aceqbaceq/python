@@ -82,11 +82,11 @@ while i >= i_min:
   sys.stdout.flush()
 
   module_account.account(  initial_account_id=i,
-                         DB_Host="localhost",
-                         DB_User="root",
-                         DB_Password="123",
-                         DB_Name="newlove",
-                         DB_Port="3307" )
+                         DB_Host=DB_Host,
+                         DB_User=DB_User,
+                         DB_Password=DB_Password,
+                         DB_Name=DB_Name,
+                         DB_Port=DB_Port )
  
 
   i -=1
