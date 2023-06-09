@@ -67,7 +67,7 @@ def account ( initial_account_id=None,
   # step 1 |  account (account_id)
   #
   A_table = "account"
-  query = ("SELECT account_id  FROM `%s` WHERE account_id=%%s ORDER BY account_id ASC LIMIT 1")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE account_id  FROM `%s` WHERE account_id=%%s ORDER BY account_id ASC LIMIT 1")  %(A_table,)
   mycursor.execute(query, (initial_account_id, ))
   myresult = mycursor.fetchall()
 
@@ -101,7 +101,7 @@ def account ( initial_account_id=None,
   # step 2 | account_access (account_id)
   #
   A_table = "account_access"
-  query = ("SELECT account_id FROM `%s` WHERE  account_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE account_id FROM `%s` WHERE  account_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -117,7 +117,7 @@ def account ( initial_account_id=None,
   # step 3 |  bank_detail (identification_account_id) 
   #
   A_table = "bank_detail"
-  query = ("SELECT bank_detail_id FROM `%s` WHERE  identification_account_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE bank_detail_id FROM `%s` WHERE  identification_account_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -133,7 +133,7 @@ def account ( initial_account_id=None,
   # step 4 |  claim (from_account_id) 
   #
   A_table = "claim"
-  query = ("SELECT claim_id  FROM `%s` WHERE  from_account_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE claim_id  FROM `%s` WHERE  from_account_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
   #print "step 4 | claim (from_account_id) | claim_id = %s " % (myresult)
@@ -154,7 +154,7 @@ def account ( initial_account_id=None,
   # step 5 |  claim (to_account_id) 
   #
   A_table = "claim"
-  query = ("SELECT claim_id  FROM `%s` WHERE  to_account_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE claim_id  FROM `%s` WHERE  to_account_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
   #print "step 5 | claim (to_account_id) | claim_id = %s " % (myresult)
@@ -174,7 +174,7 @@ def account ( initial_account_id=None,
   # step 6 |  client_uuid (account_id ) 
   #
   A_table = "client_uuid"
-  query = ("SELECT account_id  FROM `%s` WHERE  account_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE account_id  FROM `%s` WHERE  account_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -189,7 +189,7 @@ def account ( initial_account_id=None,
   # step 7 |  contract_uuid (account_id)
   #
   A_table = "contract_uuid"
-  query = ("SELECT account_id  FROM `%s` WHERE  account_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE account_id  FROM `%s` WHERE  account_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -209,7 +209,7 @@ def account ( initial_account_id=None,
   # step 8 |  driver (account_id, default_account_id) 
   #
   A_table = "driver"
-  query = ("SELECT driver_id  FROM `%s` WHERE  default_account_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE driver_id  FROM `%s` WHERE  default_account_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -231,7 +231,7 @@ def account ( initial_account_id=None,
   # step 9 |  guilty (account_id)
   #
   A_table = "guilty"
-  query = ("SELECT account_id  FROM `%s` WHERE  account_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE account_id  FROM `%s` WHERE  account_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -246,7 +246,7 @@ def account ( initial_account_id=None,
   # step 10 |  guilty_reduction (account_id)
   #
   A_table = "guilty_reduction"
-  query = ("SELECT account_id  FROM `%s` WHERE  account_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE account_id  FROM `%s` WHERE  account_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -265,7 +265,7 @@ def account ( initial_account_id=None,
   # step 11 |  invoice (invoice_id, from_account_id) 
   #
   A_table = "invoice"
-  query = ("SELECT invoice_id  FROM `%s` WHERE  from_account_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE invoice_id  FROM `%s` WHERE  from_account_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -285,7 +285,7 @@ def account ( initial_account_id=None,
   # step 12 |  invoice (invoice_id, to_account_id) 
   #
   A_table = "invoice"
-  query = ("SELECT invoice_id  FROM `%s` WHERE  to_account_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE invoice_id  FROM `%s` WHERE  to_account_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -307,7 +307,7 @@ def account ( initial_account_id=None,
   # step 13 |  order (order_id, account_id) 
   #
   A_table = "order"
-  query = ("SELECT order_id  FROM `%s` WHERE  account_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE order_id  FROM `%s` WHERE  account_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -328,7 +328,7 @@ def account ( initial_account_id=None,
   # step 14 |  order (order_id, main_account_id) 
   #
   A_table = "order"
-  query = ("SELECT order_id  FROM `%s` WHERE  main_account_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE order_id  FROM `%s` WHERE  main_account_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -348,7 +348,7 @@ def account ( initial_account_id=None,
   # step 15 |  transaction (transaction_id, account_id) 
   #
   A_table = "transaction"
-  query = ("SELECT transaction_id  FROM `%s` WHERE  account_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE transaction_id  FROM `%s` WHERE  account_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 

@@ -50,7 +50,7 @@ def transaction ( initial_transaction_id=None,
   # step 1 |  transaction (transaction_id)
   #
   A_table = "transaction"
-  query = ("SELECT transaction_id   FROM `%s` WHERE transaction_id=%%s ORDER BY transaction_id ASC LIMIT 1")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE transaction_id   FROM `%s` WHERE transaction_id=%%s ORDER BY transaction_id ASC LIMIT 1")  %(A_table,)
   mycursor.execute(query, (initial_transaction_id, ))
   myresult = mycursor.fetchall()
 
@@ -80,7 +80,7 @@ def transaction ( initial_transaction_id=None,
   # step 2 | acquiring_response (transaction_id)
   #
   A_table = "acquiring_response"
-  query = ("SELECT transaction_id FROM `%s` WHERE  transaction_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE transaction_id FROM `%s` WHERE  transaction_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -95,7 +95,7 @@ def transaction ( initial_transaction_id=None,
   # step 2 | payment_gateway_registry (transaction_id)
   #
   A_table = "payment_gateway_registry"
-  query = ("SELECT transaction_id FROM `%s` WHERE  transaction_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE transaction_id FROM `%s` WHERE  transaction_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -113,7 +113,7 @@ def transaction ( initial_transaction_id=None,
   #
   A_table = "transaction"
   A_transaction_id = d
-  query = ("SELECT parent_id FROM  `%s`  WHERE  parent_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE parent_id FROM  `%s`  WHERE  parent_id = %%s;")  %(A_table,)
   mycursor.execute(query, (A_transaction_id,))
   A_result = mycursor.fetchall()
 

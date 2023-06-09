@@ -53,7 +53,7 @@ def contract ( initial_contract_id=None,
   # step 1 |  contract (contract_id)
   #
   A_table = "contract"
-  query = ("SELECT contract_id   FROM `%s` WHERE contract_id=%%s ORDER BY contract_id ASC LIMIT 1")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE contract_id   FROM `%s` WHERE contract_id=%%s ORDER BY contract_id ASC LIMIT 1")  %(A_table,)
   mycursor.execute(query, (initial_contract_id, ))
   myresult = mycursor.fetchall()
 
@@ -84,7 +84,7 @@ def contract ( initial_contract_id=None,
   # step 2 |  invoice (invoice_id, contract_id) 
   #
   A_table = "invoice"
-  query = ("SELECT invoice_id  FROM `%s` WHERE  contract_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE invoice_id  FROM `%s` WHERE  contract_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
   #print myresult;

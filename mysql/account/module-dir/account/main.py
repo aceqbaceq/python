@@ -13,9 +13,9 @@ import mysql.connector
 i_min=50000             # min account_id
 DB_Host="localhost"
 DB_User="root"
-DB_Password="123"
-DB_Name="newlove"
-DB_Port="3307"
+DB_Password="rootpass"
+DB_Name="db2"
+DB_Port="3306"
 
 
 
@@ -48,7 +48,7 @@ mycursor = mydb.cursor()
 #
 # find max(accoun_id)
 A_table = "account"
-query = ("SELECT max(account_id)  FROM `%s`;")  %(A_table,)
+query = ("SELECT SQL_NO_CACHE max(account_id)  FROM `%s`;")  %(A_table,)
 mycursor.execute(query,)
 myresult = mycursor.fetchall()
 

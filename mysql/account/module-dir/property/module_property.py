@@ -52,7 +52,7 @@ def property ( initial_property_id=None,
   # step 1 |  property (property_id)
   #
   A_table = "property"
-  query = ("SELECT property_id   FROM `%s` WHERE property_id=%%s ORDER BY property_id ASC LIMIT 1")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE property_id   FROM `%s` WHERE property_id=%%s ORDER BY property_id ASC LIMIT 1")  %(A_table,)
   mycursor.execute(query, (initial_property_id, ))
   myresult = mycursor.fetchall()
 
@@ -82,7 +82,7 @@ def property ( initial_property_id=None,
   # step 2 |  cargo (property_id, cargo_id) 
   #
   A_table = "cargo"
-  query = ("SELECT cargo_id  FROM `%s` WHERE  property_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE cargo_id  FROM `%s` WHERE  property_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -104,7 +104,7 @@ def property ( initial_property_id=None,
   # step 3 | category_property (property_id)
   #
   A_table = "category_property"
-  query = ("SELECT property_id FROM `%s` WHERE  property_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE property_id FROM `%s` WHERE  property_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -121,7 +121,7 @@ def property ( initial_property_id=None,
   # step 4 | property_employee (property_id)
   #
   A_table = "property_employee"
-  query = ("SELECT property_id FROM `%s` WHERE  property_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE property_id FROM `%s` WHERE  property_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 

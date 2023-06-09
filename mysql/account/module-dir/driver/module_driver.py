@@ -56,7 +56,7 @@ def driver ( initial_driver_id=None,
   # step 1 |  driver (driver_id)
   #
   A_table = "driver"
-  query = ("SELECT driver_id   FROM `%s` WHERE driver_id=%%s ORDER BY driver_id ASC LIMIT 1")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE driver_id   FROM `%s` WHERE driver_id=%%s ORDER BY driver_id ASC LIMIT 1")  %(A_table,)
   mycursor.execute(query, (initial_driver_id, ))
   myresult = mycursor.fetchall()
 
@@ -84,7 +84,7 @@ def driver ( initial_driver_id=None,
   # step 2 | category_driver (driver_id)
   #
   A_table = "category_driver"
-  query = ("SELECT driver_id FROM `%s` WHERE  driver_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE driver_id FROM `%s` WHERE  driver_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -103,7 +103,7 @@ def driver ( initial_driver_id=None,
   # step 3 |  contract (contract_id, driver_id) 
   #
   A_table = "contract"
-  query = ("SELECT contract_id  FROM `%s` WHERE  driver_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE contract_id  FROM `%s` WHERE  driver_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
   #print myresult;
@@ -128,7 +128,7 @@ def driver ( initial_driver_id=None,
   # step 4 | driver_firm_history (driver_id)
   #
   A_table = "driver_firm_history"
-  query = ("SELECT driver_id FROM `%s` WHERE  driver_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE driver_id FROM `%s` WHERE  driver_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -144,7 +144,7 @@ def driver ( initial_driver_id=None,
   # step 5 | driver_history (driver_id)
   #
   A_table = "driver_history"
-  query = ("SELECT driver_id FROM `%s` WHERE  driver_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE driver_id FROM `%s` WHERE  driver_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -159,7 +159,7 @@ def driver ( initial_driver_id=None,
   # step 6 | driver_mailing (driver_id)
   #
   A_table = "driver_mailing"
-  query = ("SELECT driver_id FROM `%s` WHERE  driver_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE driver_id FROM `%s` WHERE  driver_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -177,7 +177,7 @@ def driver ( initial_driver_id=None,
   # step 7 |  trip (trip_id, driver_id) 
   #
   A_table = "trip"
-  query = ("SELECT trip_id  FROM `%s` WHERE  driver_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE trip_id  FROM `%s` WHERE  driver_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
   #print myresult;

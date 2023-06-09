@@ -67,7 +67,7 @@ def invoice ( initial_invoice_id=None,
   # step 1 |  invoice (invoice_id)
   #
   A_table = "invoice"
-  query = ("SELECT invoice_id   FROM `%s` WHERE invoice_id=%%s ORDER BY invoice_id ASC LIMIT 1")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE invoice_id   FROM `%s` WHERE invoice_id=%%s ORDER BY invoice_id ASC LIMIT 1")  %(A_table,)
   mycursor.execute(query, (initial_invoice_id, ))
   myresult = mycursor.fetchall()
 
@@ -97,7 +97,7 @@ def invoice ( initial_invoice_id=None,
   # step 2 | category_invoice (invoice_id)
   #
   A_table = "category_invoice"
-  query = ("SELECT invoice_id FROM `%s` WHERE  invoice_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE invoice_id FROM `%s` WHERE  invoice_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -114,7 +114,7 @@ def invoice ( initial_invoice_id=None,
   # step 3 |  claim (invoice_id, claim_id) 
   #
   A_table = "claim"
-  query = ("SELECT claim_id  FROM `%s` WHERE  invoice_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE claim_id  FROM `%s` WHERE  invoice_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
   #print myresult;
@@ -136,7 +136,7 @@ def invoice ( initial_invoice_id=None,
   # step 4 | guilty (invoice_id)
   #
   A_table = "guilty"
-  query = ("SELECT invoice_id FROM `%s` WHERE  invoice_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE invoice_id FROM `%s` WHERE  invoice_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -152,7 +152,7 @@ def invoice ( initial_invoice_id=None,
   # step 5 | invoice_bank_detail (invoice_id)
   #
   A_table = "invoice_bank_detail"
-  query = ("SELECT invoice_id FROM `%s` WHERE  invoice_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE invoice_id FROM `%s` WHERE  invoice_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -168,7 +168,7 @@ def invoice ( initial_invoice_id=None,
   # step 6 | invoice_confirmation (invoice_id)
   #
   A_table = "invoice_confirmation"
-  query = ("SELECT invoice_id FROM `%s` WHERE  invoice_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE invoice_id FROM `%s` WHERE  invoice_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -184,7 +184,7 @@ def invoice ( initial_invoice_id=None,
   # step 7 | invoice_edm_event (invoice_id)
   #
   A_table = "invoice_edm_event"
-  query = ("SELECT invoice_id FROM `%s` WHERE  invoice_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE invoice_id FROM `%s` WHERE  invoice_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -200,7 +200,7 @@ def invoice ( initial_invoice_id=None,
   # step 8 | invoice_post (invoice_id)
   #
   A_table = "invoice_post"
-  query = ("SELECT invoice_id FROM `%s` WHERE  invoice_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE invoice_id FROM `%s` WHERE  invoice_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -216,7 +216,7 @@ def invoice ( initial_invoice_id=None,
   # step 9 |  order (invoice_id, cash_on_delivery_prepay_invoice_id) 
   #
   A_table = "order"
-  query = ("SELECT order_id  FROM `%s` WHERE  cash_on_delivery_prepay_invoice_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE order_id  FROM `%s` WHERE  cash_on_delivery_prepay_invoice_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
   #print myresult;
@@ -238,7 +238,7 @@ def invoice ( initial_invoice_id=None,
   # step 10 |  order (invoice_id, invoice_id) 
   #
   A_table = "order"
-  query = ("SELECT order_id  FROM `%s` WHERE  invoice_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE order_id  FROM `%s` WHERE  invoice_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
   #print myresult;
@@ -261,7 +261,7 @@ def invoice ( initial_invoice_id=None,
   # step 11 |  transaction (invoice_id, transaction_id) 
   #
   A_table = "transaction"
-  query = ("SELECT transaction_id  FROM `%s` WHERE  invoice_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE transaction_id  FROM `%s` WHERE  invoice_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
   #print myresult;
@@ -287,7 +287,7 @@ def invoice ( initial_invoice_id=None,
   # step 12 |  trip  (invoice_id, trip_id) 
   #
   A_table = "trip"
-  query = ("SELECT trip_id  FROM `%s` WHERE  invoice_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE trip_id  FROM `%s` WHERE  invoice_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
   #print myresult;
@@ -310,7 +310,7 @@ def invoice ( initial_invoice_id=None,
   # step 13 |  trip  (trip_id, prepay_invoice_id) 
   #
   A_table = "trip"
-  query = ("SELECT trip_id  FROM `%s` WHERE  prepay_invoice_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE trip_id  FROM `%s` WHERE  prepay_invoice_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
   #print myresult;
@@ -336,7 +336,7 @@ def invoice ( initial_invoice_id=None,
   # step 14 | trip_service (invoice_id)
   #
   A_table = "trip_service"
-  query = ("SELECT invoice_id FROM `%s` WHERE  invoice_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE invoice_id FROM `%s` WHERE  invoice_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -354,7 +354,7 @@ def invoice ( initial_invoice_id=None,
   # step 15 |  waybill  (waybill_id, invoice_id) 
   #
   A_table = "waybill"
-  query = ("SELECT waybill_id  FROM `%s` WHERE  invoice_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE waybill_id  FROM `%s` WHERE  invoice_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
   #print myresult;

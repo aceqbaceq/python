@@ -50,7 +50,7 @@ def claim ( initial_claim_id=None,
   # step 1 |  claim (claim_id)
   #
   A_table = "claim"
-  query = ("SELECT claim_id   FROM `%s` WHERE claim_id=%%s ORDER BY claim_id ASC LIMIT 1")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE claim_id   FROM `%s` WHERE claim_id=%%s ORDER BY claim_id ASC LIMIT 1")  %(A_table,)
   mycursor.execute(query, (initial_claim_id, ))
   myresult = mycursor.fetchall()
 
@@ -78,7 +78,7 @@ def claim ( initial_claim_id=None,
   # step 2 | category_claim (claim_id)
   #
   A_table = "category_claim"
-  query = ("SELECT claim_id FROM `%s` WHERE  claim_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE claim_id FROM `%s` WHERE  claim_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -94,7 +94,7 @@ def claim ( initial_claim_id=None,
   # step 3 | claim_history (claim_id)
   #
   A_table = "claim_history"
-  query = ("SELECT claim_id FROM `%s` WHERE  claim_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE claim_id FROM `%s` WHERE  claim_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -109,7 +109,7 @@ def claim ( initial_claim_id=None,
   # step 4 | claim_order (claim_id)
   #
   A_table = "claim_order"
-  query = ("SELECT claim_id FROM `%s` WHERE  claim_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE claim_id FROM `%s` WHERE  claim_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -124,7 +124,7 @@ def claim ( initial_claim_id=None,
   # step 5 | claim_trip (claim_id)
   #
   A_table = "claim_trip"
-  query = ("SELECT claim_id FROM `%s` WHERE  claim_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE claim_id FROM `%s` WHERE  claim_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -140,7 +140,7 @@ def claim ( initial_claim_id=None,
   # step 6 | guilty (claim_id)
   #
   A_table = "guilty"
-  query = ("SELECT claim_id FROM `%s` WHERE  claim_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE claim_id FROM `%s` WHERE  claim_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 

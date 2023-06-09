@@ -50,7 +50,7 @@ def waybill ( initial_waybill_id=None,
   # step 1 |  waybill (waybill_id)
   #
   A_table = "waybill"
-  query = ("SELECT waybill_id   FROM `%s` WHERE waybill_id=%%s ORDER BY waybill_id ASC LIMIT 1")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE waybill_id   FROM `%s` WHERE waybill_id=%%s ORDER BY waybill_id ASC LIMIT 1")  %(A_table,)
   mycursor.execute(query, (initial_waybill_id, ))
   myresult = mycursor.fetchall()
 
@@ -78,7 +78,7 @@ def waybill ( initial_waybill_id=None,
   # step 2 | category_waybill (waybill_id)
   #
   A_table = "category_waybill"
-  query = ("SELECT waybill_id FROM `%s` WHERE  waybill_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE waybill_id FROM `%s` WHERE  waybill_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -94,7 +94,7 @@ def waybill ( initial_waybill_id=None,
   # step 3 | order_profit (waybill_id)
   #
   A_table = "order_profit"
-  query = ("SELECT waybill_id FROM `%s` WHERE  waybill_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE waybill_id FROM `%s` WHERE  waybill_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -109,7 +109,7 @@ def waybill ( initial_waybill_id=None,
   # step 4 | storage_service (draw_waybill_id)
   #
   A_table = "storage_service"
-  query = ("SELECT draw_waybill_id FROM `%s` WHERE  draw_waybill_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE draw_waybill_id FROM `%s` WHERE  draw_waybill_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -125,7 +125,7 @@ def waybill ( initial_waybill_id=None,
   # step 5 | storage_service (waybill_id) (one more column)
   #
   A_table = "storage_service"
-  query = ("SELECT waybill_id FROM `%s` WHERE  waybill_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE waybill_id FROM `%s` WHERE  waybill_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -141,7 +141,7 @@ def waybill ( initial_waybill_id=None,
   # step 5 | trip_contents (waybill_id) (one more column)
   #
   A_table = "trip_contents"
-  query = ("SELECT waybill_id FROM `%s` WHERE  waybill_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE waybill_id FROM `%s` WHERE  waybill_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -160,7 +160,7 @@ def waybill ( initial_waybill_id=None,
   #
   A_table = "waybill"
   A_transaction_id = d
-  query = ("SELECT parent_waybill_id FROM  `%s`  WHERE  parent_waybill_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE parent_waybill_id FROM  `%s`  WHERE  parent_waybill_id = %%s;")  %(A_table,)
   mycursor.execute(query, (A_transaction_id,))
   A_result = mycursor.fetchall()
 

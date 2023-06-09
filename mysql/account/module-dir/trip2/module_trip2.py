@@ -60,7 +60,7 @@ def trip2 ( initial_trip_id=None,
   # step 1 |  trip (trip_id)
   #
   A_table = "trip"
-  query = ("SELECT trip_id   FROM `%s` WHERE trip_id=%%s ORDER BY trip_id ASC LIMIT 1")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE trip_id   FROM `%s` WHERE trip_id=%%s ORDER BY trip_id ASC LIMIT 1")  %(A_table,)
   mycursor.execute(query, (initial_trip_id, ))
   myresult = mycursor.fetchall()
 
@@ -88,7 +88,7 @@ def trip2 ( initial_trip_id=None,
   # step 2 | category_trip (trip_id)
   #
   A_table = "category_trip"
-  query = ("SELECT trip_id FROM `%s` WHERE  trip_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE trip_id FROM `%s` WHERE  trip_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -104,7 +104,7 @@ def trip2 ( initial_trip_id=None,
   # step 3 | claim_trip (trip_id)
   #
   A_table = "claim_trip"
-  query = ("SELECT trip_id FROM `%s` WHERE  trip_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE trip_id FROM `%s` WHERE  trip_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -121,7 +121,7 @@ def trip2 ( initial_trip_id=None,
   # step 4 | point (trip_id)
   #
   A_table = "point"
-  query = ("SELECT trip_id FROM `%s` WHERE  trip_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE trip_id FROM `%s` WHERE  trip_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -139,7 +139,7 @@ def trip2 ( initial_trip_id=None,
   # step 5 |  property (trip_id, property_id) 
   #
   A_table = "property"
-  query = ("SELECT property_id  FROM `%s` WHERE  trip_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE property_id  FROM `%s` WHERE  trip_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
   #print myresult;
@@ -162,7 +162,7 @@ def trip2 ( initial_trip_id=None,
   # step 6 | route (trip_id)
   #
   A_table = "route"
-  query = ("SELECT trip_id FROM `%s` WHERE  trip_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE trip_id FROM `%s` WHERE  trip_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -178,7 +178,7 @@ def trip2 ( initial_trip_id=None,
   # step 7 | shipping_firm_price  (trip_id)
   #
   A_table = "shipping_firm_price"
-  query = ("SELECT trip_id FROM `%s` WHERE  trip_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE trip_id FROM `%s` WHERE  trip_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -193,7 +193,7 @@ def trip2 ( initial_trip_id=None,
   # step 8 | trip_contents  (trip_id)
   #
   A_table = "trip_contents"
-  query = ("SELECT trip_id FROM `%s` WHERE  trip_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE trip_id FROM `%s` WHERE  trip_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -210,7 +210,7 @@ def trip2 ( initial_trip_id=None,
   # step 9 |  trip_history (trip_id, revision_id) 
   #
   A_table = "trip_history"
-  query = ("SELECT revision_id  FROM `%s` WHERE  trip_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE revision_id  FROM `%s` WHERE  trip_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
   #print myresult;
@@ -234,7 +234,7 @@ def trip2 ( initial_trip_id=None,
   # step 10 | trip_service  (trip_id)
   #
   A_table = "trip_service"
-  query = ("SELECT trip_id FROM `%s` WHERE  trip_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE trip_id FROM `%s` WHERE  trip_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -252,7 +252,7 @@ def trip2 ( initial_trip_id=None,
   # step 11 |  waybill (trip_id, waybill_id) 
   #
   A_table = "waybill"
-  query = ("SELECT waybill_id  FROM `%s` WHERE  trip_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE waybill_id  FROM `%s` WHERE  trip_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
   #print myresult;
@@ -278,7 +278,7 @@ def trip2 ( initial_trip_id=None,
   #
   A_table = "trip"
   A_transaction_id = d
-  query = ("SELECT parent_id FROM  `%s`  WHERE  parent_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE parent_id FROM  `%s`  WHERE  parent_id = %%s;")  %(A_table,)
   mycursor.execute(query, (A_transaction_id,))
   A_result = mycursor.fetchall()
 

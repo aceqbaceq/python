@@ -50,7 +50,7 @@ def trip_history ( initial_revision_id=None,
   # step 1 |  trip_history (revision_id)
   #
   A_table = "trip_history"
-  query = ("SELECT revision_id   FROM `%s` WHERE revision_id=%%s ORDER BY revision_id ASC LIMIT 1")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE revision_id   FROM `%s` WHERE revision_id=%%s ORDER BY revision_id ASC LIMIT 1")  %(A_table,)
   mycursor.execute(query, (initial_revision_id, ))
   myresult = mycursor.fetchall()
 
@@ -78,7 +78,7 @@ def trip_history ( initial_revision_id=None,
   # step 2 | point_history (revision_id)
   #
   A_table = "point_history"
-  query = ("SELECT revision_id FROM `%s` WHERE  revision_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE revision_id FROM `%s` WHERE  revision_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -93,7 +93,7 @@ def trip_history ( initial_revision_id=None,
   # step 3 | route_history (revision_id)
   #
   A_table = "route_history"
-  query = ("SELECT revision_id FROM `%s` WHERE  revision_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE revision_id FROM `%s` WHERE  revision_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 

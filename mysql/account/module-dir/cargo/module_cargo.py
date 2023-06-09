@@ -50,7 +50,7 @@ def cargo ( initial_cargo_id=None,
   # step 1 |  cargo (cargo_id)
   #
   A_table = "cargo"
-  query = ("SELECT cargo_id   FROM `%s` WHERE cargo_id=%%s ORDER BY cargo_id ASC LIMIT 1")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE cargo_id   FROM `%s` WHERE cargo_id=%%s ORDER BY cargo_id ASC LIMIT 1")  %(A_table,)
   mycursor.execute(query, (initial_cargo_id, ))
   myresult = mycursor.fetchall()
 
@@ -80,7 +80,7 @@ def cargo ( initial_cargo_id=None,
   # step 2 | cargo_service (cargo_id)
   #
   A_table = "cargo_service"
-  query = ("SELECT cargo_id FROM `%s` WHERE  cargo_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE cargo_id FROM `%s` WHERE  cargo_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -96,7 +96,7 @@ def cargo ( initial_cargo_id=None,
   # step 3 | storage (cargo_id)
   #
   A_table = "storage"
-  query = ("SELECT cargo_id FROM `%s` WHERE  cargo_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE cargo_id FROM `%s` WHERE  cargo_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -112,7 +112,7 @@ def cargo ( initial_cargo_id=None,
   # step 4 | storage_service (cargo_id)
   #
   A_table = "storage_service"
-  query = ("SELECT cargo_id FROM `%s` WHERE  cargo_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE cargo_id FROM `%s` WHERE  cargo_id = %%s;")  %(A_table,)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -130,7 +130,7 @@ def cargo ( initial_cargo_id=None,
   #
   A_table = "cargo"
   A_transaction_id = d
-  query = ("SELECT parent_cargo_id FROM  `%s`  WHERE  parent_cargo_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE parent_cargo_id FROM  `%s`  WHERE  parent_cargo_id = %%s;")  %(A_table,)
   mycursor.execute(query, (A_transaction_id,))
   A_result = mycursor.fetchall()
 

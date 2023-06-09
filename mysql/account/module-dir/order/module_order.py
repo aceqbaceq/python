@@ -48,7 +48,7 @@ def order ( initial_order_id=None,
     #
     # step 0 | order_id 
     #
-    query = ("SELECT order_id  FROM `order` WHERE order_id=%s limit 1")
+    query = ("SELECT SQL_NO_CACHE order_id  FROM `order` WHERE order_id=%s limit 1")
 
     mycursor.execute(query, (initial_order_id, ))
     myresult2 = mycursor.fetchall()
@@ -69,7 +69,7 @@ def order ( initial_order_id=None,
     #
     # step 1 |  order (order_id)
     #
-    query = ("SELECT order_id, date FROM `order` WHERE order_id=%s ORDER BY date ASC LIMIT 1")
+    query = ("SELECT SQL_NO_CACHE order_id, date FROM `order` WHERE order_id=%s ORDER BY date ASC LIMIT 1")
     mycursor.execute(query, (initial_order_id, ))
     myresult = mycursor.fetchall()
 
@@ -88,7 +88,7 @@ def order ( initial_order_id=None,
     #
     # step 2 | category_order (order_id)
     #
-    query = ("SELECT order_id FROM `category_order` WHERE  order_id = %s limit 1;")
+    query = ("SELECT SQL_NO_CACHE order_id FROM `category_order` WHERE  order_id = %s limit 1;")
     mycursor.execute(query, (d,))
     myresult = mycursor.fetchall()
 
@@ -102,7 +102,7 @@ def order ( initial_order_id=None,
     #
     # step 3 |  claim_order (order_id)
     #
-    query = ("SELECT order_id FROM `claim_order` WHERE  order_id = %s limit 1;")
+    query = ("SELECT SQL_NO_CACHE order_id FROM `claim_order` WHERE  order_id = %s limit 1;")
     mycursor.execute(query, (d,))
     myresult = mycursor.fetchall()
 
@@ -116,7 +116,7 @@ def order ( initial_order_id=None,
     #
     # step 4 |  order_profit (order_id)
     #
-    query = ("SELECT order_id FROM `order_profit` WHERE  order_id = %s limit 1;")
+    query = ("SELECT SQL_NO_CACHE order_id FROM `order_profit` WHERE  order_id = %s limit 1;")
     mycursor.execute(query, (d,))
     myresult = mycursor.fetchall()
 
@@ -130,7 +130,7 @@ def order ( initial_order_id=None,
     #
     # step 5 |  order_profit_options (order_id)
     #
-    query = ("SELECT order_id FROM `order_profit_options` WHERE  order_id = %s limit 1;")
+    query = ("SELECT SQL_NO_CACHE order_id FROM `order_profit_options` WHERE  order_id = %s limit 1;")
     mycursor.execute(query, (d,))
     myresult = mycursor.fetchall()
 
@@ -144,7 +144,7 @@ def order ( initial_order_id=None,
     #
     # step 6 | self_finance_status_history (order_id)
     #
-    query = ("SELECT order_id FROM `self_finance_status_history` WHERE  order_id = %s limit 1;")
+    query = ("SELECT SQL_NO_CACHE order_id FROM `self_finance_status_history` WHERE  order_id = %s limit 1;")
     mycursor.execute(query, (d,))
     myresult = mycursor.fetchall()
 
@@ -167,7 +167,7 @@ def order ( initial_order_id=None,
     B_table = "category_order_mark"       # set help table name
     A_order_id = d                        # set order_id  for search
 
-    query = ("SELECT order_id,order_mark_id FROM  `%s`  WHERE  order_id = %%s;")  %(A_table,)
+    query = ("SELECT SQL_NO_CACHE order_id,order_mark_id FROM  `%s`  WHERE  order_id = %%s;")  %(A_table,)
     mycursor.execute(query, (A_order_id,))
     A_result = mycursor.fetchall()
 
@@ -182,7 +182,7 @@ def order ( initial_order_id=None,
                    #
                    #   B_table  (order_mark_id)
                    #
-                   query = ("SELECT order_mark_id FROM %s  WHERE  order_mark_id = %%s limit 1;") %(B_table,)
+                   query = ("SELECT SQL_NO_CACHE order_mark_id FROM %s  WHERE  order_mark_id = %%s limit 1;") %(B_table,)
                    mycursor.execute(query, (B_order_mark_id,))
                    B_result = mycursor.fetchall()
 
@@ -221,7 +221,7 @@ def order ( initial_order_id=None,
 
     A_order_id = d                        # set order_id  for search
 
-    query = ("SELECT order_id,waybill_id FROM  `%s`  WHERE  order_id = %%s;")  %(A_table,)
+    query = ("SELECT SQL_NO_CACHE order_id,waybill_id FROM  `%s`  WHERE  order_id = %%s;")  %(A_table,)
     mycursor.execute(query, (A_order_id,))
     A_result = mycursor.fetchall()
 
@@ -236,7 +236,7 @@ def order ( initial_order_id=None,
                    #   B_table  (waybill_id)
                    #
                    B_colum=x[1]
-                   query = ("SELECT waybill_id FROM %s  WHERE  waybill_id = %%s limit 1;") %(B_table,)
+                   query = ("SELECT SQL_NO_CACHE waybill_id FROM %s  WHERE  waybill_id = %%s limit 1;") %(B_table,)
                    mycursor.execute(query, (B_colum,))
                    B_result = mycursor.fetchall()
 
@@ -252,7 +252,7 @@ def order ( initial_order_id=None,
                    #   C_table  (waybill_id)
                    #
                    C_colum=x[1]
-                   query = ("SELECT waybill_id FROM %s  WHERE  waybill_id = %%s limit 1;") %(C_table,)
+                   query = ("SELECT SQL_NO_CACHE waybill_id FROM %s  WHERE  waybill_id = %%s limit 1;") %(C_table,)
                    mycursor.execute(query, (C_colum,))
                    C_result = mycursor.fetchall()
 
@@ -269,7 +269,7 @@ def order ( initial_order_id=None,
                    #   D_table  (waybill_id)
                    #
                    D_colum=x[1]
-                   query = ("SELECT waybill_id FROM %s  WHERE  waybill_id = %%s limit 1;") %(D_table,)
+                   query = ("SELECT SQL_NO_CACHE waybill_id FROM %s  WHERE  waybill_id = %%s limit 1;") %(D_table,)
                    mycursor.execute(query, (D_colum,))
                    D_result = mycursor.fetchall()
 
@@ -285,7 +285,7 @@ def order ( initial_order_id=None,
                    #   E_table  (waybill_id)
                    #
                    E_colum=x[1]
-                   query = ("SELECT waybill_id FROM %s  WHERE  waybill_id = %%s limit 1;") %(E_table,)
+                   query = ("SELECT SQL_NO_CACHE waybill_id FROM %s  WHERE  waybill_id = %%s limit 1;") %(E_table,)
                    mycursor.execute(query, (E_colum,))
                    E_result = mycursor.fetchall()
 
@@ -333,7 +333,7 @@ def order ( initial_order_id=None,
 
     A_order_id = d                        # set order_id  for search
 
-    query = ("SELECT order_id,property_id FROM  `%s`  WHERE  order_id = %%s;")  %(A_table,)
+    query = ("SELECT SQL_NO_CACHE order_id,property_id FROM  `%s`  WHERE  order_id = %%s;")  %(A_table,)
     mycursor.execute(query, (A_order_id,))
     A_result = mycursor.fetchall()
     #print "table property(order_id,property_id)=(%s,%s)" % (A_order_id,A_result)
@@ -349,7 +349,7 @@ def order ( initial_order_id=None,
                    #   B_table  (property_id)
                    #
                    B_colum=x[1]
-                   query = ("SELECT property_id FROM %s  WHERE  property_id = %%s limit 1;") %(B_table,)
+                   query = ("SELECT SQL_NO_CACHE property_id FROM %s  WHERE  property_id = %%s limit 1;") %(B_table,)
                    mycursor.execute(query, (B_colum,))
                    B_result = mycursor.fetchall()
 
@@ -365,7 +365,7 @@ def order ( initial_order_id=None,
                    #   C_table  (property_id)
                    #
                    C_colum=x[1]
-                   query = ("SELECT property_id FROM %s  WHERE  property_id = %%s limit 1;") %(C_table,)
+                   query = ("SELECT SQL_NO_CACHE property_id FROM %s  WHERE  property_id = %%s limit 1;") %(C_table,)
                    mycursor.execute(query, (C_colum,))
                    C_result = mycursor.fetchall()
 
@@ -382,7 +382,7 @@ def order ( initial_order_id=None,
                    #   D_table  (property_id)
                    #
                    D_colum=x[1]
-                   query = ("SELECT property_id, cargo_id FROM %s  WHERE  property_id = %%s;") %(D_table,)
+                   query = ("SELECT SQL_NO_CACHE property_id, cargo_id FROM %s  WHERE  property_id = %%s;") %(D_table,)
                    mycursor.execute(query, (D_colum,))
                    D_result = mycursor.fetchall()
 
@@ -395,7 +395,7 @@ def order ( initial_order_id=None,
                            #   E_table  (cargo_id)
                            #
                            E_colum=y[1]
-                           query = ("SELECT cargo_id FROM %s  WHERE  cargo_id = %%s limit 1;") %(E_table,)
+                           query = ("SELECT SQL_NO_CACHE cargo_id FROM %s  WHERE  cargo_id = %%s limit 1;") %(E_table,)
                            mycursor.execute(query, (E_colum,))
                            E_result = mycursor.fetchall()
 
@@ -410,7 +410,7 @@ def order ( initial_order_id=None,
                            #   F_table  (cargo_id)
                            #
                            F_colum=y[1]
-                           query = ("SELECT cargo_id FROM %s  WHERE  cargo_id = %%s limit 1;") %(F_table,)
+                           query = ("SELECT SQL_NO_CACHE cargo_id FROM %s  WHERE  cargo_id = %%s limit 1;") %(F_table,)
                            mycursor.execute(query, (F_colum,))
                            F_result = mycursor.fetchall()
 
@@ -425,7 +425,7 @@ def order ( initial_order_id=None,
                            #   G_table  (cargo_id)
                            #
                            G_colum=y[1]
-                           query = ("SELECT cargo_id FROM %s  WHERE  cargo_id = %%s limit 1;") %(G_table,)
+                           query = ("SELECT SQL_NO_CACHE cargo_id FROM %s  WHERE  cargo_id = %%s limit 1;") %(G_table,)
                            mycursor.execute(query, (G_colum,))
                            G_result = mycursor.fetchall()
 
@@ -473,7 +473,7 @@ def order ( initial_order_id=None,
     A_table = "cargo"
     A_order_id = d
     B_table = "cargo"
-    query = ("SELECT order_id, cargo_id FROM  `%s`  WHERE  order_id = %%s;")  %(A_table,)
+    query = ("SELECT SQL_NO_CACHE order_id, cargo_id FROM  `%s`  WHERE  order_id = %%s;")  %(A_table,)
     mycursor.execute(query, (A_order_id,))
     A_result = mycursor.fetchall()
     #print "table cargo, current order_id= %s, rows with this order_id are : (order_id,cargo_id)=(%s)" % (A_order_id,A_result)
@@ -489,7 +489,7 @@ def order ( initial_order_id=None,
                    #   B_table  (property_id)
                    #
                    B_colum=x[1]
-                   query = ("SELECT cargo_id,parent_cargo_id FROM %s  WHERE  parent_cargo_id = %%s;") %(B_table,)
+                   query = ("SELECT SQL_NO_CACHE cargo_id,parent_cargo_id FROM %s  WHERE  parent_cargo_id = %%s;") %(B_table,)
                    mycursor.execute(query, (B_colum,))
                    B_result = mycursor.fetchall()
 

@@ -3,7 +3,7 @@
 import sys
 import module_post
 
-i_min=100        # min post_id
+i_min=30000        # min post_id
 i_max=1563409    # max post_id
 
 
@@ -13,8 +13,8 @@ while i > i_min:
                          DB_Host="localhost",
                          DB_User="root",
                          DB_Password="rootpass",
-                         DB_Name="db",
-                         DB_Port="3308" )
+                         DB_Name="db2",
+                         DB_Port="3306" )
 
   from datetime import datetime
   now = datetime.now()
