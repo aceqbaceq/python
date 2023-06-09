@@ -51,6 +51,9 @@ def driver ( initial_driver_id=None,
          
 
 
+  # remark
+  print "\n we are inside \"driver\" module"
+
 
   #
   # step 1 |  driver (driver_id)
@@ -89,11 +92,13 @@ def driver ( initial_driver_id=None,
   myresult = mycursor.fetchall()
 
   if myresult:
+     #print "i am going to delete from table `%s`" %(A_table)
      query = ("delete from  `%s`  where driver_id = %%s") %(A_table)
      mycursor.execute(query, (d,))
      mydb.commit()
-
-
+     print "delete from table `%s` is succeded" %(A_table)
+  #else:
+     #print "there is no rows to delete in  table %s" %(A_table)
 
 
 
@@ -111,14 +116,15 @@ def driver ( initial_driver_id=None,
 
   if myresult:
      for x in myresult:
+         #print "i am going to delete from table `%s`" %(A_table)
          module_contract.contract(  initial_contract_id=x[0],
                          DB_Host=DB_Host,
                          DB_User=DB_User,
                          DB_Password=DB_Password,
                          DB_Name=DB_Name,
                          DB_Port=DB_Port )
-
-
+  #else:
+    #print "there is no rows to delete in  table %s" %(A_table)
 
 
 
@@ -133,9 +139,14 @@ def driver ( initial_driver_id=None,
   myresult = mycursor.fetchall()
 
   if myresult:
+     #print "i am going to delete from table `%s`" %(A_table)
      query = ("delete from  `%s`  where driver_id = %%s") %(A_table)
      mycursor.execute(query, (d,))
      mydb.commit()
+  #else:
+    #print "there is no rows to delete in  table %s" %(A_table)
+
+
 
 
 
@@ -149,9 +160,14 @@ def driver ( initial_driver_id=None,
   myresult = mycursor.fetchall()
 
   if myresult:
+     #print "i am going to delete from table `%s`" %(A_table)
      query = ("delete from  `%s`  where driver_id = %%s") %(A_table)
      mycursor.execute(query, (d,))
      mydb.commit()
+  #else:
+    #print "there is no rows to delete in  table %s" %(A_table)
+
+
 
 
 
@@ -164,9 +180,12 @@ def driver ( initial_driver_id=None,
   myresult = mycursor.fetchall()
 
   if myresult:
+     #print "i am going to delete from table `%s`" %(A_table)
      query = ("delete from  `%s`  where driver_id = %%s") %(A_table)
      mycursor.execute(query, (d,))
      mydb.commit()
+  #else:
+    #print "there is no rows to delete in  table %s" %(A_table)
 
 
 
@@ -185,14 +204,15 @@ def driver ( initial_driver_id=None,
 
   if myresult:
      for x in myresult:
+         #print "i am going to delete from table `%s`" %(A_table)
          module_trip.trip(  initial_trip_id=x[0],
                          DB_Host=DB_Host,
                          DB_User=DB_User,
                          DB_Password=DB_Password,
                          DB_Name=DB_Name,
                          DB_Port=DB_Port )
-
-
+  #else:
+    #print "there is no rows to delete in  table %s" %(A_table)
 
 
 
@@ -201,14 +221,14 @@ def driver ( initial_driver_id=None,
 
 
   #
-  #  step 7 | driver (driver_id)
+  #  step 8 | driver (driver_id)
   #
   #print "table `driver` has driver_id=",d
   #print "table `driver` , trying to delete driver_id =  (%s)" % (d)
   query = ("delete from  `driver` where driver_id = %s")
   mycursor.execute(query, (d,))
   mydb.commit()
-  #print "table `driver`, driver_id =  (%s) is deleted  | STATUS SUCCESS |" % (d)
+  #print "table `driver`, driver_id =  (%s) is successfully deleted  | STATUS SUCCESS |" % (d)
   #print "\n"
 
 

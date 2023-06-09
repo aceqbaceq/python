@@ -44,6 +44,8 @@ def transaction ( initial_transaction_id=None,
     mycursor = mydb.cursor()
          
 
+  # remark
+  #print " \n we are inside transaction module"
 
 
   #

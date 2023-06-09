@@ -106,7 +106,9 @@ def account ( initial_account_id=None,
   myresult = mycursor.fetchall()
 
   if myresult:
+     #print "i am going to delete from table `%s`" %(A_table)
      query = ("delete from  `%s`  where account_id = %%s") %(A_table)
+     #print "delete from table `%s` is succeded" %(A_table)
      mycursor.execute(query, (d,))
      mydb.commit()
 
@@ -122,9 +124,11 @@ def account ( initial_account_id=None,
   myresult = mycursor.fetchall()
 
   if myresult:
+     #print "i am going to delete from table `%s`" %(A_table)
      query = ("delete from  `%s`  where bank_detail_id = %%s") %(A_table)
      mycursor.execute(query, (d,))
      mydb.commit()
+     #print "delete from table `%s` is succeded" %(A_table)
 
 
 
@@ -140,12 +144,14 @@ def account ( initial_account_id=None,
 
   if myresult:
      for x in myresult:
+         #print "i am going to delete from table `%s`" %(A_table)
          module_claim.claim(  initial_claim_id=x[0],
                          DB_Host=DB_Host,
                          DB_User=DB_User,
                          DB_Password=DB_Password,
                          DB_Name=DB_Name,
                          DB_Port=DB_Port )
+         #print "delete from table `%s` is succeded" %(A_table)
 
 
 
@@ -161,12 +167,14 @@ def account ( initial_account_id=None,
 
   if myresult:
      for x in myresult:
+         #print "i am going to delete from table `%s`" %(A_table)
          module_claim.claim(  initial_claim_id=x[0],
                          DB_Host=DB_Host,
                          DB_User=DB_User,
                          DB_Password=DB_Password,
                          DB_Name=DB_Name,
                          DB_Port=DB_Port )
+         #print "delete from table `%s` is succeded" %(A_table)
 
 
 
@@ -179,9 +187,11 @@ def account ( initial_account_id=None,
   myresult = mycursor.fetchall()
 
   if myresult:
+     #print "i am going to delete from table `%s`" %(A_table)
      query = ("delete from  `%s`  where account_id = %%s")  %(A_table)
      mycursor.execute(query, (d,))
      mydb.commit()
+     #print "delete from table `%s` is succeded" %(A_table)
 
 
 
@@ -194,11 +204,11 @@ def account ( initial_account_id=None,
   myresult = mycursor.fetchall()
 
   if myresult:
+     #print "i am going to delete from table `%s`" %(A_table)
      query = ("delete from  `%s`  where account_id = %%s")  %(A_table)
      mycursor.execute(query, (d,))
      mydb.commit()
-
-
+     #print "delete from table `%s` is succeded" %(A_table)
 
 
 
@@ -215,13 +225,14 @@ def account ( initial_account_id=None,
 
   if myresult:
      for x in myresult:
+         #print "\n i am going to delete from table `%s`, driver_id=%s \n" %(A_table,x[0])
          module_driver.driver(  initial_driver_id=x[0],
                          DB_Host=DB_Host,
                          DB_User=DB_User,
                          DB_Password=DB_Password,
                          DB_Name=DB_Name,
                          DB_Port=DB_Port )
-
+         #print "delete from table `%s` is succeded" %(A_table)
 
 
 
@@ -236,9 +247,11 @@ def account ( initial_account_id=None,
   myresult = mycursor.fetchall()
 
   if myresult:
+     #print "i am going to delete from table `%s`" %(A_table)
      query = ("delete from  `%s`  where account_id = %%s")  %(A_table)
      mycursor.execute(query, (d,))
      mydb.commit()
+     #print "delete from table `%s` is succeded" %(A_table)
 
 
 
@@ -251,9 +264,11 @@ def account ( initial_account_id=None,
   myresult = mycursor.fetchall()
 
   if myresult:
+     #print "i am going to delete from table `%s`" %(A_table)
      query = ("delete from  `%s`  where account_id = %%s")  %(A_table)
      mycursor.execute(query, (d,))
      mydb.commit()
+     #print "delete from table `%s` is succeded" %(A_table)
 
 
 
@@ -271,12 +286,14 @@ def account ( initial_account_id=None,
 
   if myresult:
      for x in myresult:
+         #print "i am going to delete from table `%s`" %(A_table)
          module_invoice.invoice(  initial_invoice_id=x[0],
                          DB_Host=DB_Host,
                          DB_User=DB_User,
                          DB_Password=DB_Password,
                          DB_Name=DB_Name,
                          DB_Port=DB_Port )
+         #print "delete from table `%s` is succeded" %(A_table)
 
 
 
@@ -291,12 +308,14 @@ def account ( initial_account_id=None,
 
   if myresult:
      for x in myresult:
+         #print "i am going to delete from table `%s`" %(A_table)
          module_invoice.invoice(  initial_invoice_id=x[0],
                          DB_Host=DB_Host,
                          DB_User=DB_User,
                          DB_Password=DB_Password,
                          DB_Name=DB_Name,
                          DB_Port=DB_Port )
+         #print "delete from table `%s` is succeded" %(A_table)
 
 
 
@@ -313,13 +332,14 @@ def account ( initial_account_id=None,
 
   if myresult:
      for x in myresult:
+         #print "i am going to delete from table `%s`" %(A_table)
          module_order.order(  initial_order_id=x[0],
                          DB_Host=DB_Host,
                          DB_User=DB_User,
                          DB_Password=DB_Password,
                          DB_Name=DB_Name,
                          DB_Port=DB_Port )
-
+         #print "delete from table `%s` is succeded" %(A_table)
 
 
 
@@ -334,12 +354,15 @@ def account ( initial_account_id=None,
 
   if myresult:
      for x in myresult:
+         #print "i am going to delete from table `%s`" %(A_table)
          module_order.order(  initial_order_id=x[0],
                          DB_Host=DB_Host,
                          DB_User=DB_User,
                          DB_Password=DB_Password,
                          DB_Name=DB_Name,
                          DB_Port=DB_Port )
+         #print "delete from table `%s` is succeded" %(A_table)
+
 
 
 
@@ -354,12 +377,14 @@ def account ( initial_account_id=None,
 
   if myresult:
      for x in myresult:
+         #print "i am going to delete from table `%s`" %(A_table)
          module_transaction.transaction(  initial_transaction_id=x[0],
                          DB_Host=DB_Host,
                          DB_User=DB_User,
                          DB_Password=DB_Password,
                          DB_Name=DB_Name,
                          DB_Port=DB_Port )
+         #print "delete from table `%s` is succeded" %(A_table)
 
 
 
@@ -373,22 +398,18 @@ def account ( initial_account_id=None,
 
 
 
-
-
-
-
-
+  # FINAL STEPS
 
 
   #
-  #  step 10 | account (account_id)
+  #  step 16 | account (account_id)
   #
   #print "account has account_id=",d
   #print "table `account` , trying to delete account_id =  (%s)" % (d)
   query = ("delete from  `account` where account_id = %s")
   mycursor.execute(query, (d,))
   mydb.commit()
-  #print "table `account`, account_id =  (%s) is deleted  | STATUS SUCCESS |" % (d)
+  #print "table `account`, account_id =  (%s) is sucessfully deleted  | STATUS SUCCESS |" % (d)
   #print "\n"
 
 
