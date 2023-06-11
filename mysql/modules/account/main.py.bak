@@ -5,8 +5,6 @@ import module_account
 import datetime
 import mysql.connector
 import collections
-import os.path
-from settings import *
 
 
 #
@@ -20,18 +18,58 @@ DB_User="root"
 DB_Password="rootpass"
 DB_Name="db2"
 DB_Port="3306"
-suffix = "/settings.py"   # config file name
-
-
-
-#
-# Step -1
-#
-current_dir = os.getcwd()
-path = current_dir
-path += suffix
-print "settings file path = %s" % (path)
-
+bad_account_id=[
+4005556,
+4005550,
+4005544,
+4005538,
+4005533,
+3992314,
+3992313,
+3990514,
+3990507,
+3990501,
+3990494,
+3990489,
+3990482,
+3990472,
+3989891,
+3989890,
+3989883,
+3896752,
+3896751,
+3072203,
+3026365,
+2719223,
+2682160,
+2678435,
+2661899,
+2661588,
+2640027,
+2630711,
+2630525,
+2630359,
+2630345,
+2630222,
+2630208,
+2630145,
+2630132,
+2629869,
+2291738,
+2255326,
+2255212,
+2255165,
+2061990,
+1955250,
+1955249,
+1946305,
+1938712,
+1928827,
+1651887,
+1651886,
+1646097,
+1646096
+]  # bad_account_id == accounts that intersect payment_gateway table
 
 
 
@@ -55,23 +93,28 @@ mycursor = mydb.cursor()
 
 
 
+
+
+
+
 #
 # step 1 |  account (account_id)
 #
-# 
+# find max(accoun_id)
 A_table = "account"
-d = i_max # i_max is read via config file
-query = ("SELECT SQL_NO_CACHE account_id  FROM `%s` where account_id = %%s limit 1;")  %(A_table,)
-mycursor.execute(query,(d,))
+query = ("SELECT SQL_NO_CACHE max(account_id)  FROM `%s`;")  %(A_table,)
+mycursor.execute(query,)
 myresult = mycursor.fetchall()
 
-if myresult:
-   i_max = myresult [0][0]
-else:
-     print colored("file %s | ERROR: | 'account_id' is not found, please specify another 'account_id'. \n", 'red') % (__file__)
-     sys.exit(1)
+l = 0     
+for x in myresult:
+   l = len(myresult)
+if l == 0:
+   print colored("file %s | ERROR: | 'account_id' is not found, please specify another 'initial_account_id'. \n or doc_date = NULL ", 'red') % (__file__)
+   sys.exit(1)
 
-
+else: 
+  i_max=x[0]
 
 
 
@@ -81,6 +124,8 @@ else:
 # step 2 | launch loop
 #
 
+# kostyl
+i_max=1919712
 
 i=i_max
 while i >= i_min:
@@ -94,6 +139,12 @@ while i >= i_min:
   sys.stdout.flush()
 
 
+  # check if i do not intersect bad_accout_id list
+  result = collections.Counter([i]) & collections.Counter(bad_account_id)
+  if len(result) != 0:
+     i-=1
+     continue
+
 
   m = module_account.account(  initial_account_id=i,
                          DB_Host=DB_Host,
@@ -104,11 +155,5 @@ while i >= i_min:
   if m == 10:
     print " module %s | module account returned error \"payment gateway detected\" | skip account_id = %s " % (module_name, i)
   i -=1
-  # write new i_max to config file
-  f = open('%s' % path, 'w')      # open config file
-  f.write("i_max = %s" % i)       # write i  as i_max to config file
-  f.close()                       # close config file
-
-
 
 print ""

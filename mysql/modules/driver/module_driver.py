@@ -1,4 +1,3 @@
-#!/usr/bin/python
 import sys
 import datetime
 import mysql.connector
@@ -47,8 +46,9 @@ def driver ( initial_driver_id=None,
     port = DB_Port
     )
          
-    mycursor = mydb.cursor()
-         
+    mycursor = mydb.cursor() 
+
+    module_name = "driver"
 
 
   # remark
@@ -96,7 +96,7 @@ def driver ( initial_driver_id=None,
      query = ("delete from  `%s`  where driver_id = %%s") %(A_table)
      mycursor.execute(query, (d,))
      mydb.commit()
-     print "delete from table `%s` is succeded" %(A_table)
+     #print "delete from table `%s` is succeded" %(A_table)
   #else:
      #print "there is no rows to delete in  table %s" %(A_table)
 
@@ -108,6 +108,7 @@ def driver ( initial_driver_id=None,
   # step 3 |  contract (contract_id, driver_id) 
   #
   A_table = "contract"
+  #print "module %s | enter step with %s table"  %(module_name,A_table)
   query = ("SELECT SQL_NO_CACHE contract_id  FROM `%s` WHERE  driver_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
@@ -125,7 +126,7 @@ def driver ( initial_driver_id=None,
                          DB_Port=DB_Port )
   #else:
     #print "there is no rows to delete in  table %s" %(A_table)
-
+  #print "module %s | exit step with %s table" %(module_name, A_table)
 
 
 
@@ -196,6 +197,8 @@ def driver ( initial_driver_id=None,
   # step 7 |  trip (trip_id, driver_id) 
   #
   A_table = "trip"
+  #print "module %s | enter step  with  `%s` table                                               "  %(module_name, A_table)
+
   query = ("SELECT SQL_NO_CACHE trip_id  FROM `%s` WHERE  driver_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
@@ -203,6 +206,9 @@ def driver ( initial_driver_id=None,
 
 
   if myresult:
+     len_trigger=100
+     len_myresult=len(myresult)
+     cycles_num=len_myresult
      for x in myresult:
          #print "i am going to delete from table `%s`" %(A_table)
          module_trip.trip(  initial_trip_id=x[0],
@@ -211,8 +217,17 @@ def driver ( initial_driver_id=None,
                          DB_Password=DB_Password,
                          DB_Name=DB_Name,
                          DB_Port=DB_Port )
-  #else:
-    #print "there is no rows to delete in  table %s" %(A_table)
+
+         if len_myresult > len_trigger:
+           # calculate how many rows left to delete
+           if cycles_num==len_myresult:
+              print ""
+           cycles_num -= 1
+           sys.stdout.write("\t\t\t\t  ,trips to delete: %s \r" % (cycles_num) )
+           sys.stdout.flush()
+     if len_myresult > len_trigger:
+        print ""
+  #print "module %s | exit step with %s table" %(module_name, A_table)
 
 
 

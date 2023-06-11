@@ -20,10 +20,6 @@ import module_employee
 sys.path.append('../price_list')
 import module_price_list
 
-# module company2
-sys.path.append('../company2')
-import module_company2
-
 
 
 
@@ -66,7 +62,7 @@ def company ( initial_company_id=None,
          
     mycursor = mydb.cursor()
          
-
+    module_name = "company"
 
 
   #
@@ -109,12 +105,16 @@ def company ( initial_company_id=None,
   if myresult:
      for x in myresult:
          #print "i am going to delete from table `%s`" %(A_table)
-         module_account.account(  initial_account_id=x[0],
+         m = module_account.account(  initial_account_id=x[0],
                          DB_Host=DB_Host,
                          DB_User=DB_User,
                          DB_Password=DB_Password,
                          DB_Name=DB_Name,
                          DB_Port=DB_Port )
+
+         if m == 10:
+            print " module %s | submodule account returned error \"payment gateway detected\" | skip company_id = %s " % (module_name, d)
+            return(10)
          #print "delete from table `%s` is succeded" %(A_table)
 
 
@@ -330,18 +330,19 @@ def company ( initial_company_id=None,
 
 
   #
-  # step 12 |  company2 (company_id, parent_id) 
+  # step 12 |  company (company_id, parent_id)  | warning recursive lauch
   #
   A_table = "company"
-  #print "enter step with %s table"  %(A_table)
+  # print "module company | recursive launch | enter module company step with %s table"  %(A_table)
   query = ("SELECT SQL_NO_CACHE   company_id     FROM `%s` WHERE  parent_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
   if myresult:
+     #print "module company | recursive launch | enter module company step with %s table | parent_id= %s, its company_id= %s"  %(A_table, d, myresult[0])
      for x in myresult:
          #print "i am going to delete from table `%s`" %(A_table)
-         module_company2.company2(  initial_company2_id=x[0],
+         company(  initial_company_id=x[0],
                          DB_Host=DB_Host,
                          DB_User=DB_User,
                          DB_Password=DB_Password,

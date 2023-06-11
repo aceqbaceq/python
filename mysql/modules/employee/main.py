@@ -4,7 +4,7 @@ import sys
 import module_employee
 
 
-module_employee.employee(  initial_employee_id=9927,
+module_employee.employee(  initial_employee_id=9166,
                          DB_Host="localhost",
                          DB_User="root",
                          DB_Password="rootpass",

@@ -1,10 +1,10 @@
 #!/usr/bin/python
 
 import sys
-import module_company
+import module_employee2
 
 
-module_company.company(  initial_company_id=163,
+module_employee2.employee2(  initial_employee2_id=9927,
                          DB_Host="localhost",
                          DB_User="root",
                          DB_Password="rootpass",

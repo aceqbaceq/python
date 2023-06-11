@@ -16,8 +16,7 @@ import module_waybill
 
 
 
-
-def trip ( initial_trip_id=None, 
+def trip2 ( initial_trip_id=None, 
             DB_Host=None, 
             DB_User=None, 
             DB_Password=None, 
@@ -42,8 +41,6 @@ def trip ( initial_trip_id=None,
      ):
       print colored("file %s | ERROR: | one of function arguments  is not defined", 'red') % (__file__)
       sys.exit(1)
-
-
 
   else:
     mydb = mysql.connector.connect(
@@ -75,7 +72,6 @@ def trip ( initial_trip_id=None,
   if l == 0:
      #print colored("file %s | ERROR: | 'trip_id' is not found, please specify another 'initial_trip_id'. \n ", 'red') % (__file__)
      return
-
   else: 
       d=x[0]
       #d=12334    # for hardcode setting of account_id uncomment this line
@@ -278,42 +274,46 @@ def trip ( initial_trip_id=None,
 
 
   #
-  # step 12 |  trip (trip_id, parent_id)  | warning recursion launch
+  # step 12 |  trip (trip_id, parent_id)
   #
   A_table = "trip"
   A_transaction_id = d
-  query = ("SELECT SQL_NO_CACHE trip_id    FROM  `%s`  WHERE   parent_id = %%s;")  %(A_table,)
+  query = ("SELECT SQL_NO_CACHE parent_id FROM  `%s`  WHERE  parent_id = %%s;")  %(A_table,)
   mycursor.execute(query, (A_transaction_id,))
   A_result = mycursor.fetchall()
 
   if A_result:
          #print "---------------------------------------"
          for x in A_result:
-                 # x[0] is new trip_id of parent_id
-                 trip(  initial_trip_id=x[0],
-                         DB_Host=DB_Host,
-                         DB_User=DB_User,
-                         DB_Password=DB_Password,
-                         DB_Name=DB_Name,
-                         DB_Port=DB_Port )
+                 # x[0] is parent_id
+                 #print "table `%s` :  (trip_id,parent_id) = (%s,%s)" % (A_table,  A_transaction_id, x[0])
+                 query = ("DELETE FROM  %s  WHERE parent_id= %%s;") %(A_table,)
+                 mycursor.execute(query, (x[0],))
+                 mydb.commit()
 
 
 
 
 
 
-  # FINAL STEPS
+
+
+
+
+
+
+
 
 
   #
-  #  step 4 | trip (trip_id)
+  #  step 4 | transaction (transaction_id)
   #
-  #print "table `trip` has trip_id=",d
-  #print "table `trip` , trying to delete trip_id =  (%s)" % (d)
-  query = ("delete from  `trip` where trip_id = %s")
+  #print "table `transaction` has transaction_id=",d
+  #print "table `transaction` , trying to delete transaction_id =  (%s)" % (d)
+  query = ("delete from  `transaction` where transaction_id = %s")
   mycursor.execute(query, (d,))
   mydb.commit()
-  #print "table `trip`, trip_id =  (%s) is deleted  | STATUS SUCCESS |" % (d)
+  #print "table `transaction`, transaction_id =  (%s) is deleted  | STATUS SUCCESS |" % (d)
   #print "\n"
 
 
@@ -327,7 +327,7 @@ def trip ( initial_trip_id=None,
   #print "\n"
   #print "-----------------------------"
   #print "Current Time =", current_time
-  #print "table `trip`, (trip_id)=%s" %(d)
+  #print "table `transaction`, (transaction_id)=%s" %(d)
   #print " 1 row has been deleted\n"
   #print "-----------------------------"
   #print "\n"
@@ -335,6 +335,7 @@ def trip ( initial_trip_id=None,
 
 
   #print "the program has finished successsfully."
+
 
   mydb.commit()
   mycursor.close()

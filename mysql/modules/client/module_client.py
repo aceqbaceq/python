@@ -29,9 +29,6 @@ import module_person
 sys.path.append('../price_list')
 import module_price_list
 
-# module client2
-sys.path.append('../client2')
-import module_client2
 
 
 
@@ -77,7 +74,7 @@ def client ( initial_client_id=None,
          
     mycursor = mydb.cursor()
 
-
+    module_name = "client"
 
 
 
@@ -246,12 +243,15 @@ def client ( initial_client_id=None,
   if myresult:
      for x in myresult:
          #print "i am going to delete from table `%s`" %(A_table)
-         module_company.company(  initial_company_id=x[0],
+         m = module_company.company(  initial_company_id=x[0],
                          DB_Host=DB_Host,
                          DB_User=DB_User,
                          DB_Password=DB_Password,
                          DB_Name=DB_Name,
                          DB_Port=DB_Port )
+         if m == 10:
+            print " module %s | submodule company returned error \"payment gateway detected\" | skip client_id = %s " % (module_name, d)
+            return(10)
          #print "delete from table `%s` is succeded" %(A_table)
   #print "exit step with %s table" %(A_table)
 
@@ -530,7 +530,7 @@ def client ( initial_client_id=None,
 
 
   #
-  # step 20 |  client2 (client_id, parent_id) 
+  # step 20 |  client (client_id, parent_id)  | warning recursive launch
   #
   A_table = "client"
   #print "enter step with %s table"  %(A_table)
@@ -541,7 +541,7 @@ def client ( initial_client_id=None,
   if myresult_client2:
      for x in myresult_client2:
          #print "i am going to delete from table `%s`" %(A_table)
-         module_client2.client2(  initial_client2_id=x[0],
+         client(  initial_client_id=x[0],
                          DB_Host=DB_Host,
                          DB_User=DB_User,
                          DB_Password=DB_Password,

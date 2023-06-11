@@ -71,7 +71,7 @@ def account ( initial_account_id=None,
          
     mycursor = mydb.cursor()
 
-
+    module_name="account"
 
 
   #
@@ -230,11 +230,15 @@ def account ( initial_account_id=None,
   # step 8 |  driver (driver_id, default_account_id) 
   #
   A_table = "driver"
+  #print "module %s | enter step with `%s` table"  %(module_name,A_table)
   query = ("SELECT SQL_NO_CACHE     driver_id       FROM `%s` WHERE     default_account_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
   if myresult:
+     len_trigger=100
+     len_myresult=len(myresult)
+     cycles_num=len_myresult
      for x in myresult:
          #print "\n i am going to delete from table `%s`, driver_id=%s \n" %(A_table,x[0])
          module_driver.driver(  initial_driver_id=x[0],
@@ -244,6 +248,16 @@ def account ( initial_account_id=None,
                          DB_Name=DB_Name,
                          DB_Port=DB_Port )
          #print "delete from table `%s` is succeded" %(A_table)
+         if len_myresult > len_trigger:
+           # calculate how many rows left to delete
+           if cycles_num==len_myresult:
+              print ""
+           cycles_num -= 1
+           sys.stdout.write("\t\t\t ,drivers to delete: %s \r" % (cycles_num) )
+           sys.stdout.flush()
+     if len_myresult > len_trigger:
+        print ""
+  #print "module %s | exit step with `%s` table" %(module_name, A_table)
 
 
 
@@ -270,6 +284,7 @@ def account ( initial_account_id=None,
   # step 10 |  guilty_reduction (account_id)
   #
   A_table = "guilty_reduction"
+  #print "module %s | enter step with %s table"  %(module_name,A_table)
   query = ("SELECT SQL_NO_CACHE account_id  FROM `%s` WHERE  account_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
@@ -280,6 +295,7 @@ def account ( initial_account_id=None,
      mycursor.execute(query, (d,))
      mydb.commit()
      #print "delete from table `%s` is succeded" %(A_table)
+  #print "module %s | exit step with %s table" %(module_name, A_table)
 
 
 
@@ -291,6 +307,7 @@ def account ( initial_account_id=None,
   # step 11 |  invoice (invoice_id, from_account_id) 
   #
   A_table = "invoice"
+  #print "module %s | enter step with %s table"  %(module_name,A_table)
   query = ("SELECT SQL_NO_CACHE invoice_id  FROM `%s` WHERE  from_account_id = %%s ORDER BY from_account_id DESC ;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
@@ -322,7 +339,7 @@ def account ( initial_account_id=None,
            sys.stdout.flush()
      if len_myresult > verbose_lines:
         print ""
-
+  #print "module %s | exit step with %s table" %(module_name, A_table)
 
 
   #
@@ -419,6 +436,8 @@ def account ( initial_account_id=None,
   myresult = mycursor.fetchall()
 
   if myresult:
+     print "module %s, account_id = %s, payment_gateway DETECTED. exit module" %(module_name, d)
+     return(10)
      for x in myresult:
          #print "i am going to delete from table `%s`" %(A_table)
          module_payment_gateway.payment_gateway(  initial_gateway_id=x[0],

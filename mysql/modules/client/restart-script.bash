@@ -1,6 +1,6 @@
 #!/bin/bash
 
-until ./main.py
+until ./main-loop.py
 do
     echo "Restarting"
     sleep 2
