@@ -4,6 +4,7 @@ import sys
 import module_account
 import datetime
 import mysql.connector
+import collections
 
 
 #
@@ -16,6 +17,58 @@ DB_User="root"
 DB_Password="rootpass"
 DB_Name="db2"
 DB_Port="3306"
+bad_account_id=[
+4005556,
+4005550,
+4005544,
+4005538,
+4005533,
+3992314,
+3992313,
+3990514,
+3990507,
+3990501,
+3990494,
+3990489,
+3990482,
+3990472,
+3989891,
+3989890,
+3989883,
+3896752,
+3896751,
+3072203,
+3026365,
+2719223,
+2682160,
+2678435,
+2661899,
+2661588,
+2640027,
+2630711,
+2630525,
+2630359,
+2630345,
+2630222,
+2630208,
+2630145,
+2630132,
+2629869,
+2291738,
+2255326,
+2255212,
+2255165,
+2061990,
+1955250,
+1955249,
+1946305,
+1938712,
+1928827,
+1651887,
+1651886,
+1646097,
+1646096
+]  # bad_account_id == accounts that intersect payment_gateway table
 
 
 
@@ -70,6 +123,9 @@ else:
 # step 2 | launch loop
 #
 
+# kostyl
+i_max=2629869
+
 i=i_max
 while i >= i_min:
 
@@ -81,6 +137,14 @@ while i >= i_min:
   sys.stdout.write("current account_id: %s,   time=%s, date=%s   \r" % (i,current_time,today) )
   sys.stdout.flush()
 
+
+  # check if i do not intersect bad_accout_id list
+  result = collections.Counter([i]) & collections.Counter(bad_account_id)
+  if len(result) != 0:
+     i-=1
+     continue
+
+
   module_account.account(  initial_account_id=i,
                          DB_Host=DB_Host,
                          DB_User=DB_User,
@@ -88,7 +152,6 @@ while i >= i_min:
                          DB_Name=DB_Name,
                          DB_Port=DB_Port )
  
-
   i -=1
 
 print ""

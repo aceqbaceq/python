@@ -52,7 +52,7 @@ def driver ( initial_driver_id=None,
 
 
   # remark
-  print "\n we are inside \"driver\" module"
+  #print "\n we are inside \"driver\" module"
 
 
   #

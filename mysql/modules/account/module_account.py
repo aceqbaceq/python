@@ -3,23 +3,34 @@ import sys
 import datetime
 import mysql.connector
 from termcolor import colored
+
 # module claim
 sys.path.append('../claim')
 import module_claim
+
 # module driver
 sys.path.append('../driver')
 import module_driver
+
 # module invoice
 sys.path.append('../invoice')
 import module_invoice
+
 # module order
 sys.path.append('../order')
 import module_order
+
 # module transaction
 sys.path.append('../transaction')
 import module_transaction
 
 
+# module payment_gateway
+sys.path.append('../payment_gateway')
+import module_payment_gateway
+
+
+sys.setrecursionlimit(2000)
 
 
 
@@ -29,7 +40,7 @@ def account ( initial_account_id=None,
             DB_Password=None, 
             DB_Name=None, 
             DB_Port=None
-          ):
+           ):
 
 #
 #  function description:
@@ -59,7 +70,7 @@ def account ( initial_account_id=None,
     )
          
     mycursor = mydb.cursor()
-         
+
 
 
 
@@ -216,10 +227,10 @@ def account ( initial_account_id=None,
 
 
   #
-  # step 8 |  driver (account_id, default_account_id) 
+  # step 8 |  driver (driver_id, default_account_id) 
   #
   A_table = "driver"
-  query = ("SELECT SQL_NO_CACHE driver_id  FROM `%s` WHERE  default_account_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE     driver_id       FROM `%s` WHERE     default_account_id = %%s;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
@@ -280,11 +291,14 @@ def account ( initial_account_id=None,
   # step 11 |  invoice (invoice_id, from_account_id) 
   #
   A_table = "invoice"
-  query = ("SELECT SQL_NO_CACHE invoice_id  FROM `%s` WHERE  from_account_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE invoice_id  FROM `%s` WHERE  from_account_id = %%s ORDER BY from_account_id DESC ;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
   if myresult:
+     verbose_lines=100
+     len_myresult=len(myresult)
+     invoice_left=len_myresult
      for x in myresult:
          #print "i am going to delete from table `%s`" %(A_table)
          module_invoice.invoice(  initial_invoice_id=x[0],
@@ -294,7 +308,20 @@ def account ( initial_account_id=None,
                          DB_Name=DB_Name,
                          DB_Port=DB_Port )
          #print "delete from table `%s` is succeded" %(A_table)
-
+         if len_myresult > verbose_lines:
+           # calculate how many rows left to delete
+           if invoice_left==len_myresult:
+              print ""
+           invoice_left -= 1
+           from datetime import datetime
+           now = datetime.now()
+           current_time = now.strftime("%H:%M:%S")
+           from datetime import date
+           today = date.today()
+           sys.stdout.write("current account_id: %s,   time=%s, date=%s   ,invoice to delete: %s \r" % (d,current_time,today,invoice_left) )
+           sys.stdout.flush()
+     if len_myresult > verbose_lines:
+        print ""
 
 
 
@@ -302,11 +329,14 @@ def account ( initial_account_id=None,
   # step 12 |  invoice (invoice_id, to_account_id) 
   #
   A_table = "invoice"
-  query = ("SELECT SQL_NO_CACHE invoice_id  FROM `%s` WHERE  to_account_id = %%s;")  %(A_table)
+  query = ("SELECT SQL_NO_CACHE invoice_id  FROM `%s` WHERE  to_account_id = %%s ORDER BY to_account_id DESC ;")  %(A_table)
   mycursor.execute(query, (d,))
   myresult = mycursor.fetchall()
 
   if myresult:
+     verbose_lines = 100
+     len_myresult=len(myresult)
+     invoice_left=len_myresult
      for x in myresult:
          #print "i am going to delete from table `%s`" %(A_table)
          module_invoice.invoice(  initial_invoice_id=x[0],
@@ -316,9 +346,20 @@ def account ( initial_account_id=None,
                          DB_Name=DB_Name,
                          DB_Port=DB_Port )
          #print "delete from table `%s` is succeded" %(A_table)
-
-
-
+         if len_myresult > verbose_lines:
+           # calculate how many rows left to delete
+           if invoice_left==len_myresult:
+              print ""
+           invoice_left -= 1
+           from datetime import datetime
+           now = datetime.now()
+           current_time = now.strftime("%H:%M:%S")
+           from datetime import date
+           today = date.today()
+           sys.stdout.write("current account_id: %s,   time=%s, date=%s   ,invoice to delete: %s \r" % (d,current_time,today,invoice_left) )
+           sys.stdout.flush()
+     if len_myresult > verbose_lines:
+        print ""
 
 
 
@@ -367,8 +408,36 @@ def account ( initial_account_id=None,
 
 
 
+
+
   #
-  # step 15 |  transaction (transaction_id, account_id) 
+  # step 15 |  payment_gateway (gateway_id, payment_account_id) 
+  #
+  A_table = "payment_gateway"
+  query = ("SELECT SQL_NO_CACHE   gateway_id      FROM `%s` WHERE    payment_account_id   = %%s;")  %(A_table)
+  mycursor.execute(query, (d,))
+  myresult = mycursor.fetchall()
+
+  if myresult:
+     for x in myresult:
+         #print "i am going to delete from table `%s`" %(A_table)
+         module_payment_gateway.payment_gateway(  initial_gateway_id=x[0],
+                         DB_Host=DB_Host,
+                         DB_User=DB_User,
+                         DB_Password=DB_Password,
+                         DB_Name=DB_Name,
+                         DB_Port=DB_Port )
+         #print "delete from table `%s` is succeded" %(A_table)
+
+
+
+
+
+
+
+
+  #
+  # step 16 |  transaction (transaction_id, account_id) 
   #
   A_table = "transaction"
   query = ("SELECT SQL_NO_CACHE transaction_id  FROM `%s` WHERE  account_id = %%s;")  %(A_table)
@@ -402,7 +471,7 @@ def account ( initial_account_id=None,
 
 
   #
-  #  step 16 | account (account_id)
+  #  step 17 | account (account_id)
   #
   #print "account has account_id=",d
   #print "table `account` , trying to delete account_id =  (%s)" % (d)
