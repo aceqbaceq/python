@@ -153,7 +153,7 @@ def claim ( initial_claim_id=None,
 
 
 
-
+  # FINAL STEPS
 
   #
   #  step 7 | claim (claim_id)
