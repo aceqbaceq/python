@@ -14,7 +14,7 @@ from settings import *
 # set inital variabes
 #
 
-i_min=50000             # min account_id
+i_min=100000             # min account_id
 module_name = "main"
 DB_Host="localhost"
 DB_User="root"
