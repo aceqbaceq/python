@@ -6,6 +6,7 @@ import datetime
 import mysql.connector
 import collections
 import os.path
+from termcolor import colored
 from settings import *
 
 
@@ -30,7 +31,6 @@ suffix = "/settings.py"   # config file name
 current_dir = os.getcwd()
 path = current_dir
 path += suffix
-print "settings file path = %s" % (path)
 
 
 
@@ -59,19 +59,23 @@ mycursor = mydb.cursor()
 # step 1 |  account (account_id)
 #
 # 
-A_table = "account"
-d = i_max # i_max is read via config file
-query = ("SELECT SQL_NO_CACHE account_id  FROM `%s` where account_id = %%s limit 1;")  %(A_table,)
-mycursor.execute(query,(d,))
-myresult = mycursor.fetchall()
+myresult=[]
+while not myresult:     # we cycle inside loop until find account_id in the table or reach i_min
+  A_table = "account"
+  query = ("SELECT SQL_NO_CACHE account_id  FROM `%s` where account_id = %%s limit 1;")  %(A_table,)
+  mycursor.execute(query,(i_max,))  # i_max is read via config file
+  myresult = mycursor.fetchall()
 
-if myresult:
-   i_max = myresult [0][0]
-else:
-     print colored("file %s | ERROR: | 'account_id' is not found, please specify another 'account_id'. \n", 'red') % (__file__)
+  if not myresult:      # if  account_id = i_max is not found in `account` table we print error message
+     print colored("file %s | ERROR: | 'account_id' = %s  is not found,  i will try 'account_id=account_id - 1'   \n", 'red') % (__file__, i_max)   
+ 
+  i_max -= 1            # decrease i_max
+  if i_max <= i_min:    # if i_max <= i_min we exit from module
+     print colored("file %s | ERROR: | 'account_id' is less than i_min = %s, please specify another 'account_id'. \n", 'red') % (__file__, i_min)
      sys.exit(1)
 
 
+print colored("file %s | SUCCESS: | 'account_id' = %s  is found,  continue to process   \n", 'green') % (__file__, i_max)
 
 
 
