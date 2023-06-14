@@ -104,6 +104,7 @@ while i >= i_min:
   t_min=i
   t_min -= sql_step
   t_max = i
+  # select distinct  account.account_id  from `order` inner join account on (order.account_id = account.account_id) order by account.account_id limit 30;
   query = ("SELECT SQL_NO_CACHE    client_id  FROM `%s` where   client_id >= %%s    AND   client_id <= %%s   ORDER BY  client_id DESC;")  %(A_table,)
   mycursor.execute(query,(t_min,t_max))
   myresult = mycursor.fetchall()

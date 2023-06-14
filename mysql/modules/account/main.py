@@ -14,11 +14,11 @@ from settings import *
 #
 
 i_min=1             # min account_id
-sql_step = 100000
+sql_step = 10000
 DB_Host="localhost"
 DB_User="root"
 DB_Password="123"
-DB_Name="newlove"
+DB_Name="fastrans"
 DB_Port="3306"
 module_name = "main"
 suffix = "/settings.py"   # config file name
@@ -104,7 +104,18 @@ while i >= i_min:
   t_min=i
   t_min -= sql_step
   t_max = i
-  query = ("SELECT SQL_NO_CACHE    account_id  FROM `%s` where   account_id >= %%s    AND   account_id <= %%s  and type_id = 1  ORDER BY  account_id DESC;")  %(A_table,)
+  # select ...  from account where company_id is null;
+  #query = ("SELECT SQL_NO_CACHE    account_id  FROM `%s` where   (account_id >= %%s    AND   account_id <= %%s)  and (type_id =1 and company_id is null)    ORDER BY  account_id DESC;")  %(A_table,)
+
+  # select   distinct (account.account_id)    from `order` inner join account on (order.account_id = account.account_id) where company_id is null order by account.account_id desc;
+  query = ("""SELECT SQL_NO_CACHE 
+            DISTINCT (account.account_id)    
+            FROM `order`    
+            INNER JOIN account ON (order.account_id = account.account_id)  
+            WHERE   (account.company_id is null )  AND    (account.account_id >= %s    AND   account.account_id <= %s)  
+            ORDER BY  account.account_id DESC;""")
+
+
   mycursor.execute(query,(t_min,t_max))
   myresult = mycursor.fetchall()
 
