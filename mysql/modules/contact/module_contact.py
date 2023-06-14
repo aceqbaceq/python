@@ -197,13 +197,16 @@ def contact ( initial_contact_id=None,
   if myresult:
      for x in myresult:
          #print "i am going to delete from table `%s`" %(A_table)
-         module_company.company(  initial_company_id=x[0],
+         m = module_company.company(  initial_company_id=x[0],
                          DB_Host=DB_Host,
                          DB_User=DB_User,
                          DB_Password=DB_Password,
                          DB_Name=DB_Name,
                          DB_Port=DB_Port )
-         #print "delete from table `%s` is succeded" %(A_table)
+         if m == 10:
+            print " module %s | submodule company returned error \"payment gateway detected\" | skip company_id = %s " % (module_name, x[0])
+            return(10)
+          #print "delete from table `%s` is succeded" %(A_table)
 
 
 
